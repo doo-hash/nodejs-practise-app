@@ -1,0 +1,63 @@
+TESTING IN NODEJS
+
+several types of tests --
+a- unitary tests
+b- functional tests
+c- acceptance tests
+
+for this ntask-app, we are using acceptance test
+--- we will use MOCHA module for testing.
+
+mocha has the following features--
+TDD style
+BDD style
+Code coverage html report
+Customized test reports
+Asynchronous test support
+Easily integrated with modules: should, assert, and chai
+
+***********************************************************
+setting up new test environment:
+
+1. setup a new database
+--rename config file as config.development.js
+--copy and paste config file and
+   rename it as config.test.js, set looging as false in this file
+
+2. settings according to system requirement
+-- create libs/config.js
+ module.exports = app => {
+const env = process.env.NODE_ENV;
+if(env){
+return require(`./config.${env}.js`);
+}
+return require("./config.development.js");
+}
+3. modules install --save-dev
+--babel-register : to run ES6 codes
+--mocha : to run the tests
+--chai : to write BDD tests
+--supertest : to do some requests in the API
+
+4.set the script in package.json
+"test" : "NODE_ENV=test mocha test/**/*.js"
+5.export index file
+--module.exports = app
+--set consign({verbose: false}).....
+6. to run the server only once
+--set the condition in libs/boot.js file
+if(process.env.NODE_ENV !== "test"){
+..............
+}
+7. Mocha settings
+--create test/helpers.js
+global.app=app;
+global.request=supertest(app);
+global.expect = chai.expect;
+8. Mocha Options
+-->create test/mocha.opts
+--require test/helpers
+--require spec
+--compilers js:babel-register
+--slow 5000
+9.tests

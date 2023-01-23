@@ -1,6 +1,8 @@
 const { application } = require("express");
 const Tasks = require("../models/Tasks.js");
-
+const { passport } = require("passport");
+const config = require("../libs/config.js");
+const auth = require("../auth.js");
 module.exports = app => {
     // app.get("/tasks", async (req, res) => {
     //     const tasks = await Tasks.findAll();
@@ -9,8 +11,11 @@ module.exports = app => {
 
     //ADDING CRUD API
     app.route("/tasks")
+        .all(app.auth.authenticate())
         .get((req, res) => {
-            Tasks.findAll()
+            Tasks.findAll({
+                where : { user_id : req.user.id }
+            })
                 .then(result => {
                     console.log("Tasks : ", result);
                     res.json(result);
@@ -20,6 +25,7 @@ module.exports = app => {
                 });
         })
         .post((req, res) => {
+            req.body.user_id = user.id;
             console.log("body : ", req.body);
             Tasks.create(req.body)
                 .then(result => {
@@ -31,8 +37,13 @@ module.exports = app => {
         });
 
     app.route("/tasks/:id")
+        .all(app.auth.authenticate())
         .get((req, res) => {
-            Tasks.findOne({where : req.params})
+            Tasks.findOne({where : {
+                    id : req.params.id,
+                    user_id : req.user.id
+                    }   
+                })
                 .then((result) => {
                     if(result) {
                         res.json(result);
@@ -45,7 +56,12 @@ module.exports = app => {
                 });
         })
         .put((req, res) => {
-            Tasks.update(req.body, {where : req.params})
+            Tasks.update(req.body, {where : 
+                    { 
+                        id : req.params.id,
+                        user_id : req.user.id
+                    }
+                })
                 .then((result) => {
                     res.sendStatus(204);
                 })
@@ -55,7 +71,12 @@ module.exports = app => {
         })
         .delete((req, res) => {
             console.log(req.params);
-            Tasks.destroy({where : req.params})
+            Tasks.destroy({where : 
+                {
+                    id : req.params.id,
+                    user_id : req.user.id
+                }
+            })
             .then((result) => {
                 console.log("result: ", result);
                 res.sendStatus(204);
