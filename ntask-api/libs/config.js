@@ -1,7 +1,7 @@
 module.exports = {
-    database : "ntask",
-    username : "root",
-    password : "fungame",
+    database : "ntaskapi",
+    username : "springuser",
+    password : "spring",
     params : {
         dialect : "mysql",
         dialectModulePath : "mysql2",

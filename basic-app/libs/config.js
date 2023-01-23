@@ -1,12 +1,12 @@
 import mysql2 from "mysql2";
 
 module.exports = {
-    database : "ntask",
+    database : "ntaskapi",
     username : "root",
     password : "fungame",
     params :{
         dialect : "mysql",
-        dialectModule : "mysql2",
+        dialectModulePath : "mysql2",
         host : "localhost",
         define : {
             undescored : true

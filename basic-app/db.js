@@ -28,9 +28,9 @@ module.exports = app =>{
             const model = require(modelDir);
             db.models[model.name] = model;
         });
-        Object.keys(db.models).forEach(key => {
-            db.models[key].associate(db.models);
-        });
+        // Object.keys(db.models).forEach(key => {
+        //     db.models[key].associate(db.models);
+        // });
     return db;
     }
 };

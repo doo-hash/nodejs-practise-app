@@ -1,3 +1,7 @@
+Reference Textbook : 
+Building apis with nodejs by Caio Ribeiro Pereira
+***************************************
+
 NODEJS PRACTISE APP --- NOTES
 *************************************************
 github repo steps:

@@ -44,6 +44,6 @@ const User = sequelize.define("User", {
 });
 
 User.hasMany(Tasks);
-Tasks.belongsTo(User);
+// Tasks.belongsTo(User);
 console.log(User === sequelize.models.User);
 module.exports = User;
