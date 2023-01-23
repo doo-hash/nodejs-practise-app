@@ -1,3 +1,57 @@
 NODEJS PRACTISE APP --- NOTES
 *************************************************
+github repo steps:
+---------------------------------
+echo "# nodejs-practise-app" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/doo-hash/nodejs-practise-app.git
+git push -u origin main
+----------------------------------------------------------------------
 
+LIST OF NPM COMMANDS::
+------------------------------------------
+1. npm init : create anew project
+2. npminstall module_name : install a module
+3. npm install -g module_name ; install a global module
+4. npm install module_name --save : install a module and add it into the package.json, inside dependencies
+5. npm install module_name --save-dev : install a module and add it into the package.json, inside devdependencies
+6. npm list : list all modules installed on the project
+7. npm list -g : list all modules installed on os
+8. npm remove module-name : uninstall a module from the project
+9. npm remove -g module-name : uninstall a global module
+10.npm remove module-name --save-dev  
+11. npm remove module-name --save
+12. npm update module-name
+13. npm update -g module-name
+14. npm -v
+15. npm adduser
+16. npm whoami
+17. npm publish
+
+----------------------------------------------------------------------
+
+scripts: {
+	"start" : "node app.js",
+	"start" : "rm -rf node_modules",
+	"test" : "node test.js"
+}
+------------------------------------------------------------------------
+************************************************************
+**************************************************************
+REST API  -- node task
+1. list of tasks
+2. create, delete and update a task
+3. create, delete and update a user data
+4. user authentication
+5. api documentation page
+
+-------------------------------------
+1.
+create project 
+--- npm init
+2.
+---- npm install express --save
+3.

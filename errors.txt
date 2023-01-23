@@ -1,0 +1,3 @@
+a) problem : install mysql package manually
+    solution: add
+	dialectModulePath : "mysql2" in config file.
