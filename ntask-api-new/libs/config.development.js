@@ -1,7 +1,7 @@
 module.exports = {
-    database : "ntaskapi",
-    username : "springuser",
-    password : "spring",
+    database : "ntask",
+    username : "root",
+    password : "fungame",
     params : {
         dialect : "mysql",
         dialectModulePath : "mysql2",
@@ -9,5 +9,7 @@ module.exports = {
         define : {
             undescored : true
         }
-    }
+    },
+    jwtSecret : "NTa$k-AP1",
+    jwtSession : {session : false}
 };

@@ -1,16 +1,15 @@
-import mysql2 from "mysql2";
-
 module.exports = {
-    database : "ntaskapi",
+    database : "ntask",
     username : "root",
     password : "fungame",
-    params :{
+    params : {
         dialect : "mysql",
         dialectModulePath : "mysql2",
-        host : "localhost",
+        logging : false,
         define : {
             undescored : true
-        },
-        logging : console.log
-    }
+        }
+    },
+    jwtSecret : "NTa$k-AP1",
+    jwtSession : {session : false}
 };
