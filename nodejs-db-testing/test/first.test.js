@@ -4,7 +4,7 @@ const app = require("../index.js");
 const request = require("supertest");
 
 
-describe("GET /", () => {
+describe("Basic Tests -- GET /", () => {
     it("should return a simple message", async () => {
         const res = await request(app).get("/");
         console.log(res.body);

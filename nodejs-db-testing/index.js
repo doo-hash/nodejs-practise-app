@@ -6,18 +6,22 @@ const app = express();
 
 app.set("port", 3000);
 app.set("json spaces", 4);
+app.use(express.json());
 app.use(express.urlencoded({extended : true}));
+const con = "mongodb+srv://soujanya:qwerty123@cluster0.bezcn.mongodb.net/ntask?retryWrites=true&w=majority";
 
-mongoose.connect("mongodb://localhost/testDB", {
-    useNewUrlParser : true
-})
-.then(() => {
-    console.log("connected");
-})
-.catch((err) => {
-    console.log("failed to connect : ", err);
-    process.exit();
-})
+mongoose.connect(con, 
+    { 
+        useNewUrlParser: true, 
+        useUnifiedTopology: true 
+    })
+    .then(() => {
+        console.log("connected");
+    })
+    .catch((err) => {
+        console.log("failed to connect : ", err);
+        process.exit();
+    })
 
  const mainRouteer = require("./routes/index.js");
  const usersRouter = require("./routes/user.route.js");

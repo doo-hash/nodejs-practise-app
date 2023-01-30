@@ -1,6 +1,9 @@
 const Sequelize = require("sequelize");
-const config = require("./libs/config.js");
-
+let config = null;
+const env = process.env.NODE_ENV;
+if(env != null){
+    config = require(`./libs/config.${env}.js`); 
+}
 const sequelize = new Sequelize(
     config.database,
     config.username,
