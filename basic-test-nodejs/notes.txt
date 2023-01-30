@@ -1,0 +1,48 @@
+
+// parse application/json, basically parse incoming Request Object as a JSON Object 
+app.use(express.json());
+// parse application/x-www-form-urlencoded, basically can only parse incoming Request Object if strings or arrays
+app.use(express.urlencoded({ extended: false }));
+// parse incoming Request Object if object, with nested objects, or generally any type.
+app.use(express.urlencoded({ extended: true }));
+
+same for body-parser
+
+no need to use body-parser as it is included in express
+
+
+***************************************
+
+Test Driven Development is the process in which test cases are written before the code that validates those cases. 
+It depends on repetition of a very short development cycle. 
+
+The following sequence of steps is generally followed:
+
+1. Add a test – Write a test case that describe the function completely. 
+        In order to make the test cases the developer must understand the features and 
+        requirements using user stories and use cases.
+2. Run all the test cases and make sure that the new test case fails.
+3. Write the code that passes the test case
+4. Run the test cases
+5. Refactor code – This is done to remove duplication of code.
+6. Repeat the above mentioned steps again and again
+
+Motto of TDD:
+1. Red – Create a test case and make it fail
+2. Green – Make the test case pass by any means.
+3. Refactor – Change the code to remove duplicate/redundancy
+*****************************************
+Testing frameworks:(Unit Testing)
+> mocha
+> jest
+> jasmine
+> ava
+--------
+chai --> an assertion library which compares sentences, objects, arrays....;
+       > used as TDD(Test Driven Development), BDD(Behaviour Driven Development) assertion library and
+        can be paired up with any testing f/w;
+       > it is mostly used with mocha;
+***************************
+for testing script
+"test" : "mocha" or
+"test" : "mocha --recursive --exit"
