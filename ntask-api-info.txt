@@ -1,0 +1,30 @@
+NTASK API:
+----------
+
+dependencies : 
+	express,
+	body-parser,
+	nodemon, --- dev-dependency
+	sequelize,
+	mysql2/mongoose,
+	passport,
+	bcrypt,
+	passport-jwt,
+	jwt-simple
+	
+Test related dependencies :
+	mocha,
+	chai,
+	supertest
+
+------------------------------
+
+home page --> /
+lists page --> /lists   ----protected page  METHOD : GET, POST
+single task --> /lists/:id -- protected page  METHOD : GET, PUT, DELETE
+login page --> /login or /token --- METHOD : POST
+register page --> /register --- METHOD : POST
+users page --> /user -- METHOD : GET, DELETE
+
+----------------------------------------
+	

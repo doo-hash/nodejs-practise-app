@@ -11,6 +11,7 @@ const sequelize = new Sequelize(
     config.params
 );
 
+
 try{
     sequelize.authenticate();
     console.log("connection successfull");

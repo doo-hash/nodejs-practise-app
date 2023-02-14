@@ -1,11 +1,11 @@
-const { Passport } = require("passport");
-require("../auth.js");
-const Users = require("../models/User.js");
+const passport = require("passport");
 
 module.exports = app => {
 
+    const config = require("../libs/config.test.js");
+    const Users = require("../models/User.js");
     app.route("/user")
-        .all(app.auth.authenticate())
+        .all(passport.authenticate("jwt", config.jwtSession))
         .get((req, res) => {
             Users.findById(req.params.id, {
                 attributes:["id", "firstName", "lastName", "email"]
@@ -28,7 +28,6 @@ module.exports = app => {
         });
 
     app.post("/users", (req, res) => {
-        console.log(req.body);
         Users.create(req.body)
         .then((result) => {
             res.json(result);

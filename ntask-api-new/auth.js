@@ -1,39 +1,38 @@
-const passport = require("passport");
-const { ExtractJwt, Strategy } = require("passport-jwt");
+let mypassport = require("passport");
+let passportJwt = require("passport-jwt");
 
-module.exports = app => {
-    const Users = require("./models/User.js");
-    const config = require("./libs/config.js");
-    
-    const params = {
-        secretOrKey : config.jwtSecret,
-        jwtFromRequest : ExtractJwt.fromAuthHeaderWithScheme("jwt")
-    };
+const users = require("./models/User.js");
+let config = null;
+const env = process.env.NODE_ENV;
+if(env != null){
+    config = require(`./libs/config.${env}.js`); 
+}
 
-    const strategy = new Strategy(params, (payload, done) => {
-        Users.findById(payload.id)
-            .then(user => {
-                if(user){
-                    return done(null, {
-                        id : user.id,
-                        email : user.email
-                    });
-                }
-                return done(null, false);
-            })
-            .catch(error => {
-                done(error,null);
-            });
-    });
+let ExtractJwt = passportJwt.ExtractJwt;
+let JwtStrategy = passportJwt.Strategy;
 
-    passport.use(strategy);
-
-    return {
-        initialize : () => {
-            return passport.initialize();
-        },
-        authenticate : () => {
-            return passport.authenticate("jwt", config.jwtSession);
-        }
-    };
+let params = {
+    secretOrKey : config.jwtSecret,
+    jwtFromRequest : ExtractJwt.fromAuthHeaderAsBearerToken()
 };
+
+let mystrategy = new JwtStrategy(params, async function(jwt_payload, done) {
+    console.log('Payload received : ', jwt_payload);
+    // let user = users[jwt_payload.id] || null;
+    let user = await users.findById({id : jwt_payload.id});
+    
+    if(user) {
+        done(null, {
+            id : user.id
+        });
+    }else{
+        done(null, false);
+    }
+});
+   
+   mypassport.use(mystrategy);
+
+module.exports = {
+    mypassport,
+    params
+}

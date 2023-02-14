@@ -1,9 +1,8 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("../db.js");
-const Tasks = require("./Tasks.js");
+const bcrypt = require("bcrypt");
 
-module.exports= (sequelize, DataTypes) => {
-sequelize.define("User", {
+const Users = sequelize.define("User", {
     id : {
         type : DataTypes.INTEGER,
         primaryKey : true,
@@ -44,20 +43,19 @@ sequelize.define("User", {
     tableName : "NewUser"
 });
 
-User.beforeCreate(user => {
+Users.beforeCreate(user => {
     const salt = bcrypt.genSaltSync();
     user.password = bcrypt.hashSync(user.password, salt);
 });
 
-User.isPassword = (encodedPassword, password) => {
+Users.isPassword = (encodedPassword, password) => {
     return bcrypt.compareSync(password, encodedPassword);
 };
 
 // User.hasMany(Tasks); or
-User.associate = function({Tasks}) {
-    User.hasMany(Tasks);
+Users.associate = function({Tasks}) {
+    Users.hasMany(Tasks);
 };
-// Tasks.belongsTo(User);
-console.log(User === sequelize.models.User);
-return User;
-};
+// Tasks.belongsTo(Users);
+console.log(Users === sequelize.models.Users);
+module.exports = Users;

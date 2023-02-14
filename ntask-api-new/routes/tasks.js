@@ -1,18 +1,21 @@
-const { application } = require("express");
+const passport = require("passport");
 const Tasks = require("../models/Tasks.js");
-const { passport } = require("passport");
-const config = require("../libs/config.js");
-const auth = require("../auth.js");
+let config = null;
+const env = process.env.NODE_ENV;
+if(env != null){
+    config = require(`../libs/config.${env}.js`);
+}
 module.exports = app => {
     // app.get("/tasks", async (req, res) => {
     //     const tasks = await Tasks.findAll();
     //     res.json({currenttasks : tasks});
     // });
-
     //ADDING CRUD API
+
     app.route("/tasks")
-        .all(app.auth.authenticate())
+        .all(passport.authenticate("jwt", {session : false}))
         .get((req, res) => {
+            console.log("here iam")
             Tasks.findAll({
                 where : { user_id : req.user.id }
             })
@@ -37,7 +40,7 @@ module.exports = app => {
         });
 
     app.route("/tasks/:id")
-        .all(app.auth.authenticate())
+        .all(passport.authenticate("jwt", {session : false}))
         .get((req, res) => {
             Tasks.findOne({where : {
                     id : req.params.id,
