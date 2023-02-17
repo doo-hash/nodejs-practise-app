@@ -27,4 +27,18 @@ register page --> /register --- METHOD : POST
 users page --> /user -- METHOD : GET, DELETE
 
 ----------------------------------------
+models:
+
+1. task:
+	id - integer,
+	title - string,
+	done - boolean
+
+2. user:
+	id - integer,
+	firstName - string,
+	lastName - string,
+	email - string,
+	password - string(bcrypt)
+	associate - single user can have many tasks
 	
