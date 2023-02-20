@@ -32,7 +32,12 @@ const User = sequelize.define("User", {
         validate : {
             notEmpty : true
         }
-    } 
+    },
+    inActive : {
+        type : Sequelize.BOOLEAN,
+        allowNull : false,
+        defaultValue : false
+    }
 },{
     tableName : "user"
 });
