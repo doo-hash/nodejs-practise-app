@@ -50,6 +50,7 @@ User.beforeCreate(user => {
 User.isPassword = (encodedPassword, password) => {
     return bcrypt.compareSync(password, encodedPassword);
 };
+
 User.hasMany(Tasks,{
     as : "tasks"
 });

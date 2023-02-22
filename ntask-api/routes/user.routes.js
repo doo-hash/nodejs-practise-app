@@ -8,26 +8,27 @@ userRouter.post("/users/register", async (req, res) => {
 
     if(!user){
         const newUser = await userController.createUser({firstName, lastName, email, password});
+        console.log(newUser.id);
         res.status(200).json({
-            user : newUser,
+            createdUser : newUser,
             message : "User registered successfully",
             prompt : "You can create your tasks now!!"
         });
     }
-    res.status(200).json({
-        message : "User already exists with email : " + email,
-        suggestion : "Register with another email account"
-    });
+    else{
+        res.status(200).json({
+            message : "User already exists with email : " + email,
+            suggestion : "Register with another email account"
+        });    
+    }
 });
 
 userRouter.put("/users/:id", async (req, res) => {
-
-    const {firstName, lastName, email, password} = req.body;
-    const user = await userController.getUser({id : req.body.id});
+    const {firstName, lastName, email} = req.body;
+    const user = await userController.getUser({id : req.params.id});
 
     if(user){
-        console.log("User : ", JSON.stringify(req.body));
-        const updateUser = userController.updateUser({firstName, lastName, email, password});
+        const updateUser = await userController.updateUser({firstName, lastName, email},{id : req.params.id});
         res.status(200).json({
             user : updateUser,
             message : "User updated successfully",
@@ -35,14 +36,14 @@ userRouter.put("/users/:id", async (req, res) => {
         });
     }
     res.status(404).json({
-        message : "User not found with id : " + id,
+        message : "User not found with id : " + req.params.id,
         suggestion : "Create an account"
     });
 });
 
 userRouter.get("/users/:id", async (req, res) => {
     const id = req.params.id;
-    const user = await userController.getUserWithTasks({id : id});
+    const user = await userController.getUser({id : id});
 
     if(!user){
         res.status(404).json({
@@ -50,19 +51,19 @@ userRouter.get("/users/:id", async (req, res) => {
             prompt : "You can register youself now!"
         });
     }
-    res.status(200).json({
-        success : "ok",
-        user : user
-    });
+    else{
+        res.status(200).json({
+            success : "ok",
+            user : user
+        });    
+    }
 });
 
 userRouter.get("/users", async (req, res) => {
     const users = await userController.getAllUsers();
-    console.log(users);
     if(!users){
         res.status(404).json({
-            message : "No Users",
-            users : users
+            message : "No Users"
         });
     }
     res.status(200).json({

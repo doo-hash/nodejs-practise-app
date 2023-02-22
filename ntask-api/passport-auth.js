@@ -18,7 +18,7 @@ let mystrategy = new JwtStrategy(jwtOptions, function(jwt_payload, next){
         next(null, user);
     }
     else{
-        next(null, false);
+        next(null, false, { message : "No user with that email" });
     }
 });
 mypassport.use(mystrategy);

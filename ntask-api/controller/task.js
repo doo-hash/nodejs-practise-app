@@ -2,12 +2,18 @@ const Tasks = require("../models/Tasks.js");
 
 const getAllTasks = async () => {
     const tasks = await Tasks.findAll({where : {}});
+    if(tasks == ""){
+        return null;
+    }
     return tasks;
 };
 
 const getTask = async (dataobj) => {
     const task = await Tasks.findOne({where : dataobj});
-    return task;
+    if(task){
+        return task;
+    }
+    return null;
 };
 
 const createTask = async (taskData) => {
@@ -19,13 +25,21 @@ const bulkCreateTask = async (taskDataObj) => {
     return tasks;
 };
 const updateTask = async (taskData, idObj) => {
-    await Tasks.update(taskData,{where : idObj});
     const task = await Tasks.findOne({where : idObj});
-    return task;
+    if(task){
+        await Tasks.update(taskData,{where : idObj});
+        const updatedTask = await Tasks.findOne({where : idObj});
+        return updatedTask;
+    }
+    return null;
 };
 
 const deleteTask = async (dataobj) => {
-    await Tasks.destroy({where : dataobj});
+    const task = await Tasks.findOne({where : dataobj});
+    if(task){
+        await Tasks.destroy({where : dataobj});
+    }
+    return null;
 };
 
 module.exports = {
