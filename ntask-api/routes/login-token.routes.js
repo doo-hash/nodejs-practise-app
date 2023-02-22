@@ -27,7 +27,7 @@ tokenRouter.post("/login", async (req, res, next) => {
     }
     else{
         res.status(401).json({
-            message : "email password are required"
+            message : "email and password are required"
         });
     } 
 });

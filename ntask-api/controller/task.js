@@ -1,7 +1,7 @@
 const Tasks = require("../models/Tasks.js");
 
-const getAllTasks = async () => {
-    const tasks = await Tasks.findAll({where : {}});
+const getAllTasks = async (idObj) => {
+    const tasks = await Tasks.findAll({where : idObj});
     if(tasks == ""){
         return null;
     }
