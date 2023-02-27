@@ -1,0 +1,23 @@
+{
+    "development" : {
+        "database" : "ntask_api_v3",
+        "username" : "root",
+        "password" : "fungame",
+        "host" : "127.0.0.1",
+        "dialect" : "mysql"
+    },
+    "test" : {
+        "database" : "ntask_api_v3",
+        "username" : "root",
+        "password" : "fungame",
+        "host" : "127.0.0.1",
+        "dialect" : "mysql"
+    },
+    "production" : {
+        "database" : "ntask_api_v3",
+        "username" : "root",
+        "password" : "fungame",
+        "host" : "127.0.0.1",
+        "dialect" : "mysql"
+    }    
+}
