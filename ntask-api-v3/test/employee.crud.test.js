@@ -19,7 +19,7 @@
 //             };
 //             await Employee.create(emp);
 //             const employees = await Employee.findAll({where : {}});
-//             const e = await employeeController.findAllEmployee();
+//             const e = await employeeController.findAllEmployees();
 //             expect(e.length).to.equal(1);
 //             expect(e[0].id).to.equal(employees[0].id);
 //             expect(e[0].fullName).to.equal(employees[0].fullName);
@@ -28,7 +28,7 @@
 //         }); 
 
 //         it("should return null", async () => {
-//             const e = await employeeController.findAllEmployee();
+//             const e = await employeeController.findAllEmployees();
 //             expect(e).to.equal(null);
 //         });
 //     });
@@ -75,10 +75,51 @@
 //             expect(e.tasks.length).to.equal(4);
 //         });
 
-//         it("should return null", async () => {
+//         it("should return null when employee not found", async () => {
 //             const e = await employeeController.findEmployee({id : 1});
 //             expect(e).to.equal(null);
 //         });
+
+//         it("should return null when employee is deleted", async () => {
+//             let emp = {
+//                 fullName: "Naruto",
+//                 userName: "Uzumaki",
+//                 email: "naruto@ninja.net",
+//                 password: "9tailfox",
+//                 inActive : true
+//             };
+//             let employee = await Employee.create(emp);
+//             const e = await employeeController.findEmployee({id : employee.id});
+//             let tasks = await Tasks.findAll({where : {EmployeeId : employee.id}});
+//             if(tasks == ""){
+//                 tasks = null;
+//             }
+//             expect(e).to.equal(null);
+//             expect(tasks).to.equal(null);
+//         });
+
+//         it("should return null - no tasks when employee not found", async () => {
+//             const e = await employeeController.findEmployeewithTasks({id : 1});
+//             expect(e).to.equal(null);
+//         });
+
+//         it("should return null when employee is deleted", async () => {
+//             let emp = {
+//                 fullName: "Naruto",
+//                 userName: "Uzumaki",
+//                 email: "naruto@ninja.net",
+//                 password: "9tailfox",
+//                 inActive : true
+//             };
+//             let employee = await Employee.create(emp);
+//             const e = await employeeController.findEmployeewithTasks({id : employee.id});
+//             let tasks = await Tasks.findAll({where : {EmployeeId : employee.id}});
+//             if(tasks == ""){
+//                 tasks = null;
+//             }
+//             expect(e).to.equal(null);
+//             expect(tasks).to.equal(null);
+//         }); 
 //     });
 
 //     describe("POST - Test for saveEmployee()", () => {
@@ -115,11 +156,45 @@
 //             expect(e.fullName).to.equal(emp.fullName);
 //             expect(e.userName).to.equal(emp.userName);
 //             expect(e.email).to.equal(employee.email);
-//         }); 
+//         });
+        
+//         it("shoudld not update and return null when employee is deleted", async () => {
+//             let employeedata = {
+//                 fullName: "Naruto",
+//                 userName: "Uzumaki",
+//                 email: "naruto@ninja.net",
+//                 password: "9tailfox", 
+//                 inActive : true
+//             };
+//             const employee = await Employee.create(employeedata);
+//             let emp = {
+//                 fullName: "Naruto Namikaze",
+//                 userName: "Uzumaki",
+//             };
+//             const e = await employeeController.updateEmployee(emp, {id : employee.id});
+//             expect(e).to.equal(null);
+//         });
+
+//         it("shoudld not update and return null when employee not found", async () => {
+//             let employeedata = {
+//                 fullName: "Naruto",
+//                 userName: "Uzumaki",
+//                 email: "naruto@ninja.net",
+//                 password: "9tailfox", 
+//                 inActive : true
+//             };
+//             const employee = await Employee.create(employeedata);
+//             let emp = {
+//                 fullName: "Naruto Namikaze",
+//                 userName: "Uzumaki",
+//             };
+//             const e = await employeeController.updateEmployee(emp, {id : employee.id+1});
+//             expect(e).to.equal(null);
+//         });
 //     });
 
 //     describe("DELETE - Test for deleteEmployee()", () => {
-//         it("shoudld update and return employee data", async () => {
+//         it("shoudld set inActive to true and return employee data", async () => {
 //             let employeedata = {
 //                 fullName: "Naruto",
 //                 userName: "Uzumaki",
@@ -129,6 +204,31 @@
 //             const employee = await Employee.create(employeedata);
 //             const e = await employeeController.deleteEmployee({id : employee.id});
 //             expect(e).to.have.property("inActive").to.eq(true);
-//         }); 
+//         });
+        
+//         it("shoudld not set inActive to true and return null when its not found", async () => {
+//             let employeedata = {
+//                 fullName: "Naruto",
+//                 userName: "Uzumaki",
+//                 email: "naruto@ninja.net",
+//                 password: "9tailfox"
+//             };
+//             const employee = await Employee.create(employeedata);
+//             const e = await employeeController.deleteEmployee({id : employee.id+1});
+//             expect(e).to.equal(null);
+//         });
+
+//         it("shoudld not set inActive to true and return null when its already deleted", async () => {
+//             let employeedata = {
+//                 fullName: "Naruto",
+//                 userName: "Uzumaki",
+//                 email: "naruto@ninja.net",
+//                 password: "9tailfox",
+//                 inActive : true
+//             };
+//             const employee = await Employee.create(employeedata);
+//             const e = await employeeController.deleteEmployee({id : employee.id+1});
+//             expect(e).to.equal(null);
+//         });
 //     });
 // });

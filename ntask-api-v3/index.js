@@ -24,10 +24,12 @@ myapp.use(bodyParser.urlencoded({extended : true}));
 const mainRouter = require("./routes/main.route.js");
 const employeeRouter = require("./routes/employee.route.js");
 const loginRouter = require("./routes/login.route.js");
+const taskRouter = require("./routes/tasks.route.js");
 
 myapp.use(mainRouter);
 myapp.use(employeeRouter);
 myapp.use(loginRouter);
+myapp.use(taskRouter);
 
 myapp.use((error, req, res, next) => {
     if (res.headersSent) {

@@ -1,5 +1,4 @@
 // const expect = require("chai").expect;
-// const request = require("supertest");
 // const taskController = require("../controller/taskController.js");
 // const Employee = require("../models/Employee.js");
 // const Tasks = require("../models/Task.js");
@@ -39,14 +38,53 @@
 //             expect(tasks[3].title).to.equal("Revise");
 //         }); 
 
-//         it("should return null", async () => {
+//         it("should return null when no task found", async () => {
 //             const tasks = await taskController.findAll();
 //             expect(tasks).to.equal(null);
 //         });
 //     });
 
+//     describe("GET - Test for findAllforEmp()", () => {
+//         it("shoudld return list of tasks data for a given Employee", async () => {
+//             let tasksdata = [
+//                 { title: "Work", EmployeeId: employee.id },
+//                 { title: "Practise", EmployeeId: employee.id },
+//                 { title: "Plan", EmployeeId: employee.id },
+//                 { title: "Revise", EmployeeId: employee.id },
+//             ];
+//             await Tasks.bulkCreate(tasksdata);
+//             const tasks = await taskController.findAllforEmp({EmployeeId : employee.id});
+//             expect(tasks.length).to.equal(4);
+//             expect(tasks[0].EmployeeId).to.equal(employee.id);
+//             expect(tasks[1].EmployeeId).to.equal(employee.id);
+//             expect(tasks[2].EmployeeId).to.equal(employee.id);
+//             expect(tasks[3].EmployeeId).to.equal(employee.id);
+//             expect(tasks[0].title).to.equal("Work");
+//             expect(tasks[1].title).to.equal("Practise");
+//             expect(tasks[2].title).to.equal("Plan");
+//             expect(tasks[3].title).to.equal("Revise");
+//         }); 
+
+//         it("should return null for a given employee", async () => {
+//             const tasks = await taskController.findAllforEmp({EmployeeId : employee.id});
+//             expect(tasks).to.equal(null);
+//         });
+
+//         it("should return null when employee not fonud", async () => {
+//             let tasksdata = [
+//                 { title: "Work", EmployeeId: employee.id },
+//                 { title: "Practise", EmployeeId: employee.id },
+//                 { title: "Plan", EmployeeId: employee.id },
+//                 { title: "Revise", EmployeeId: employee.id },
+//             ];
+//             await Tasks.bulkCreate(tasksdata);
+//             const tasks = await taskController.findAllforEmp({EmployeeId : employee.id+1});
+//             expect(tasks).to.equal(null);
+//         });
+//     });
+
 //     describe("GET - Test for findTask()", () => {
-//         it("shoudld return task data", async () => {
+//         it("should return task data with valid employee id", async () => {
 //             let taskdata = { title: "Work", EmployeeId: employee.id };
 //             let task = await Tasks.create(taskdata);
 

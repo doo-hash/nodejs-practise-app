@@ -5,10 +5,10 @@ const employeeController = require("./controller/employeeController.js");
 const bcrypt = require("bcrypt");
 
 let mystrategy = new localStrategy({
-    usernameField : 'userName'
+    usernameField : 'email'
 },
-async (username, password, done) => {
-    const employee = await employeeController.findEmployee({userName : username});    
+async (email, password, done) => {
+    const employee = await employeeController.findEmployee({email : email});    
     if(!employee){
         return done(null, false, { message : "No Employee found"});
     }

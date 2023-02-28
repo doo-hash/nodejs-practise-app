@@ -14,7 +14,7 @@
 
 //     describe("POST -- Test for post /Employees/regiter", ()=> {
     
-//         it("POST -- should return a positive json response", async () => {
+//         it("POST -- should save and return a json response with employee", async () => {
 //             let createEmployee = {
 //                 fullName : "Naruto", 
 //                 userName : "Uzumaki", 
@@ -37,7 +37,7 @@
 //             expect(res.body.createdEmployee).to.have.property("createdAt");
 //         });
     
-//         it("POST -- should return a negative json response", async () => {
+//         it("POST -- should not save and return json response with message", async () => {
 //             let createEmployee = {
 //                 fullName : "Naruto", 
 //                 userName : "Uzumaki", 
@@ -66,7 +66,7 @@
 //             console.log("Employee created \n");
 //         });
 
-//         it("PUT -- should return a positive json response", async () => {
+//         it("PUT -- should update and return a json response with updated employee", async () => {
 //             let updateEmployee = {
 //                 fullName : "Naruto", 
 //                 userName : "Uzumaki", 
@@ -87,7 +87,7 @@
 //             expect(res.body.Employee).to.have.property("createdAt");
 //         });
         
-//         it("PUT -- should return a negative json response", async () => {
+//         it("PUT -- should not update and return a json response with message", async () => {
 //             let updateEmployee = {
 //                 fullName : "Naruto", 
 //                 userName : "Uzumaki", 
@@ -114,7 +114,7 @@
 //             console.log("Employee created \n");
 //         });
 
-//         it("GET -- should return a positive json response", async () => {
+//         it("GET -- should return a json response with employee if its found", async () => {
 //             const res = await request(myapp)
 //                                 .get("/employees/" + employee.id)
 //             expect(res.status).to.equal(200);
@@ -130,7 +130,7 @@
 //             expect(res.body.Employee).to.have.property("tasks");
 //         });
         
-//         it("GET -- should return a negative json response", async () => {
+//         it("GET -- should return a json response message if its not found", async () => {
 //             const res = await request(myapp)
 //                                 .get("/employees/" + 2)
 //             expect(res.status).to.equal(404);
@@ -139,7 +139,7 @@
 //     });
 
 //     describe("GET -- get all Employees /Employees", () => {
-//         it("GET -- should return a positive json response", async () => {
+//         it("GET -- should return a json response with employees if its found", async () => {
 //             let employees = [
 //                 {fullName : "Naruto", userName : "Uzumaki", email : "naruto@ninja.net", password : "9tailfox"},
 //                 {fullName : "Sasuke", userName : "Uchiha", email : "sasuke@ninja.net", password : "hiddenshadow"},
@@ -155,7 +155,7 @@
 //         });
   
 
-//         it("GET -- should return a negative json response", async () => {
+//         it("GET -- should return a json response with message if its not found", async () => {
 //             const res = await request(myapp)
 //                                 .get("/employees")
 //             expect(res.status).to.equal(404);
@@ -176,7 +176,7 @@
 //             console.log("Employee created \n");
 //         });
 
-//         it("DELETE - positive response", async () => {
+//         it("DELETE - should return a json response with success message", async () => {
 //             const res = await request(myapp)
 //                                 .delete("/employees/"+ employee.id);
 //             expect(res.status).to.equal(200);
@@ -184,12 +184,20 @@
 //             expect(res.body).to.have.property("success");
 //         });
 
-//         it("DELETE - negative response", async () => {
+//         it("DELETE - should return a json response with message if employee not found", async () => {
 //             await Employee.destroy({where : {}});
 //             const res = await request(myapp)
 //                                 .delete("/employees/"+ employee.id);
 //             expect(res.status).to.equal(404);
 //             expect(res.body).to.have.property("message");
+//         });
+
+//         it("DELETE - should return a json response with message if employee is deleted", async () => {
+//             await Employee.update({inActive : true}, {where : {id : employee.id}});
+//             const res = await request(myapp)
+//                                 .delete("/employees/"+ employee.id);
+//             expect(res.status).to.equal(404);
+//             expect(res.body).to.have.property("message").to.equal("No Employee Found");
 //         });
 //     });
 // });

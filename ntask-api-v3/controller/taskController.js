@@ -8,6 +8,14 @@ const findAll = async () => {
     return tasks;
 };
 
+const findAllforEmp = async (idObj) => {
+    const tasks = await Tasks.findAll({where : idObj});
+    if(tasks == ""){
+        return null;
+    }
+    return tasks;
+};
+
 const findTask = async (dataObj) => {
     const task = await Tasks.findOne({where : dataObj});
     if(task){
@@ -17,7 +25,6 @@ const findTask = async (dataObj) => {
 };
 
 const saveTask = async (dataObj) => {
-    console.log("dataObj : ", dataObj);
     if(dataObj.EmployeeId != null){
         const task = await Tasks.create(dataObj);
         return task;    
@@ -33,11 +40,8 @@ const saveBulkTasks = async (bulkTaskData) => {
 const updateTask = async (updateObj, idObj) => {
     const task = await Tasks.findOne({where : idObj});
     if(task){
-        console.log("updateObj : ", updateObj);
-        console.log("idObj : ", idObj);
         await Tasks.update(updateObj, {where : idObj});
         const updateTask = await Tasks.findOne({where : idObj});
-        console.log(updateTask)
         return updateTask;
     }
     return null;
@@ -52,6 +56,7 @@ const deleteTask = async (idObj) => {
 
 module.exports = {
     findAll,
+    findAllforEmp,
     findTask,
     saveBulkTasks,
     saveTask,

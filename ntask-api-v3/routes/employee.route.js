@@ -31,10 +31,11 @@ employeeRouter.put("/employees/:id", async (req, res) => {
             Employee : updateEmp,
             message : "Employee updated successfully"
         });
+    }else{
+        res.status(404).json({
+            message : "Employee not found with id : " + req.params.id
+        });
     }
-    res.status(404).json({
-        message : "Employee not found with id : " + req.params.id
-    });
 });
 
 employeeRouter.get("/employees/:id", async (req, res) => {
@@ -55,7 +56,7 @@ employeeRouter.get("/employees/:id", async (req, res) => {
 });
 
 employeeRouter.get("/employees", async (req, res) => {
-    const employees = await employeeController.findAllEmployee();
+    const employees = await employeeController.findAllEmployees();
     if(!employees){
         res.status(404).json({
             message : "No Employees"
@@ -70,16 +71,17 @@ employeeRouter.get("/employees", async (req, res) => {
 employeeRouter.delete("/employees/:id", async (req, res) => {
     const id = req.params.id;
     const employee = await employeeController.deleteEmployee({id : id});
-
-    if(!employee){
+    if(employee){
+        res.status(200).json({
+            success : "ok",
+            message : employee.userName + " deleted successfully:("
+        });
+    }
+    else{
         res.status(404).json({
             message : "No Employee Found"
         });
     }
-    res.status(200).json({
-        success : "ok",
-        message : employee.userName + " deleted successfully:("
-    });
 });
 
 module.exports = employeeRouter;
