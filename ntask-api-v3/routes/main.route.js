@@ -1,5 +1,5 @@
 const express = require("express");
-const { ensureNotAuthenticated } = require("../lib/auth");
+const { ensureNotAuthenticated, ensureAuthenticated } = require("../lib/auth");
 const sampleDbData = require("../sampleDbData");
 const mainRouter = express.Router();
 
@@ -35,6 +35,19 @@ mainRouter.get("/sample",ensureNotAuthenticated, async (req, res, next) => {
         // const { employees, tasks } = await sampleDbData();
             res.json({
                 message : "You cannot see this page when you are logged in",        
+            });
+                
+    } catch (error) {
+        console.log(error.message);
+        next(error);
+    }
+});
+
+mainRouter.get("/protected",ensureAuthenticated, async (req, res, next) => {
+    try {
+        // const { employees, tasks } = await sampleDbData();
+            res.json({
+                Employee  : req.user.id,        
             });
                 
     } catch (error) {
