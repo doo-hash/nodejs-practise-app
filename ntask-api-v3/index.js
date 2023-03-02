@@ -19,7 +19,7 @@ myapp.set("port", 3000);
 myapp.set("json spaces", 4);
 myapp.use(bodyParser.json());
 myapp.use(bodyParser.urlencoded({extended : true}));
-
+myapp.use(express.static("public"));
 
 const mainRouter = require("./routes/main.route.js");
 const employeeRouter = require("./routes/employee.route.js");

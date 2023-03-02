@@ -20,7 +20,64 @@ describe("Login- Logout Route tests", () => {
     });
 
     describe("POST - /login", () => {
-        it("should send a cookie if credentials are coorect", (done) => {
+        it("should not send a cookie if password is incorrect", (done) => {
+
+            agent.post("/login")
+                    .send({email : employee.email, password : "456nizams"})
+                    .expect(302)
+                    .expect('Location', "/")
+                    .end(function(err, res){
+                        if(err) return done(err);
+
+                        agent.get("/")
+                                .expect(200)
+                                .end(function(err, res){
+                                    if(err) return done(err);
+                                    expect(res.body).to.have.property("message")
+                                    done()
+                                })
+                    });
+        });
+
+        it("should not send a cookie if credentials are incorrect", (done) => {
+
+            agent.post("/login")
+                    .send({email : "shifu@gg.ccc", password : "45a6nizam"})
+                    .expect(302)
+                    .expect('Location', "/")
+                    .end(function(err, res){
+                        if(err) return done(err);
+
+                        agent.get("/")
+                                .expect(200)
+                                .end(function(err, res){
+                                    if(err) return done(err);
+                                    expect(res.body).to.have.property("message")
+                                    done()
+                                })
+                    });
+        });
+
+        it("should not send a cookie if email is incorrect", (done) => {
+
+            agent.post("/login")
+                    .send({email : "shifu@gg.ccc", password : "456nizam"})
+                    .expect(302)
+                    .expect('Location', "/")
+                    .end(function(err, res){
+                        if(err) return done(err);
+
+                        agent.get("/")
+                                .expect(200)
+                                .end(function(err, res){
+                                    if(err) return done(err);
+                                    expect(res.body).to.have.property("message")
+                                    done()
+                                })
+                    });
+        });
+
+        it("should send a cookie if credentials are correct", (done) => {
 
             // const res = await request(myapp).post("/login")
             //                         .send({email : employee.email, password : "456nizam"});
@@ -55,7 +112,8 @@ describe("Login- Logout Route tests", () => {
                                 })
                     });
         });
-        
+
+
         it("should see protected page", function(done) {
             agent.get("/protected")
                     .expect(200)
@@ -226,7 +284,7 @@ describe("Login- Logout Route tests", () => {
             })
 
             it("should not update and return a message if task not found", (done) => {
-                agent.get("/tasks/"+createdTasks[2].id)
+                agent.put("/tasks/"+createdTasks[2].id)
                 .expect(200)
                 .end(function(err, res){
                     if(err) return done(err);

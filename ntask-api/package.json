@@ -5,7 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "npm run apidoc && node index.js",
+    "apidoc": "apidoc -i routes/ -o public/apidoc",
+    "coverage": "nyc --reporter=html --reporter=text mocha --exit --timeout 30000"
+  },
+  "apidoc": {
+    "name": "Node Task API - Documentation",
+    "template": {
+      "forceLanguage": "en"
+    }
   },
   "keywords": [
     "nodejs",
@@ -23,6 +32,7 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "jwt-simple": "^0.5.6",
     "mysql2": "^3.1.2",
@@ -31,9 +41,11 @@
     "sequelize": "^6.28.0"
   },
   "devDependencies": {
+    "apidoc": "^0.54.0",
     "chai": "^4.3.7",
     "mocha": "^10.2.0",
     "nodemon": "^2.0.20",
+    "nyc": "^15.1.0",
     "supertest": "^6.3.3"
   }
 }

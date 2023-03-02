@@ -49,10 +49,6 @@ Employee.beforeCreate(employee => {
     employee.password = bcrypt.hashSync(employee.password, salt);
 });
 
-Employee.isPassword = (encodedPassword, password) => {
-    return bcrypt.compareSync(password, encodedPassword);
-};
-
 Employee.hasMany(Tasks,{
     as : "tasks"
 });

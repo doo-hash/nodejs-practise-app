@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const mypassport = require("./passport-auth.js");
+const cors = require("cors");
 
 const myapp = express();
 myapp.use(passport.initialize());
@@ -10,7 +11,8 @@ myapp.set("port",3000);
 myapp.set("json spaces", 4);
 myapp.use(bodyParser.json());
 myapp.use(bodyParser.urlencoded({ extended : true }));
-
+myapp.use(express.static("public"));
+myapp.use(cors());
 // require("./sampleDataupload.js");
 
 const mainRouter = require("./routes/home.js");

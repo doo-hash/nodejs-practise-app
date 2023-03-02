@@ -3,6 +3,17 @@ const { ensureNotAuthenticated, ensureAuthenticated } = require("../lib/auth");
 const sampleDbData = require("../sampleDbData");
 const mainRouter = express.Router();
 
+/**
+ * @api {get} /API Status
+ * @apiGroup Status
+ * @apiSuccess {String} status API Status message
+ * @apiSuccessExample {json} Success
+ * HTTP/1.1 200 OK
+ * {
+                success : "ok",
+                message : "All is Well. You Can Start NOW",        
+            }
+ */
 mainRouter.get("/", async (req, res, next) => {
     try {
         // const { employees, tasks } = await sampleDbData();
@@ -18,42 +29,23 @@ mainRouter.get("/", async (req, res, next) => {
 });
 
 mainRouter.get("/home", ensureNotAuthenticated, async (req, res, next) => {
-    try {
-        // const { employees, tasks } = await sampleDbData();
             res.json({
                 message : "You need to login to go further",        
             });
-                
-    } catch (error) {
-        console.log(error.message);
-        next(error);
-    }
 });
 
 mainRouter.get("/sample",ensureNotAuthenticated, async (req, res, next) => {
-    try {
         // const { employees, tasks } = await sampleDbData();
             res.json({
                 message : "You cannot see this page when you are logged in",        
             });
                 
-    } catch (error) {
-        console.log(error.message);
-        next(error);
-    }
 });
 
 mainRouter.get("/protected",ensureAuthenticated, async (req, res, next) => {
-    try {
-        // const { employees, tasks } = await sampleDbData();
             res.json({
                 Employee  : req.user.id,        
             });
-                
-    } catch (error) {
-        console.log(error.message);
-        next(error);
-    }
 });
 
 module.exports = mainRouter;
