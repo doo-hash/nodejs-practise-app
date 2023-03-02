@@ -8,7 +8,8 @@
     "dev": "nodemon index.js",
     "start": "npm run apidoc && node index.js",
     "apidoc": "apidoc -i routes/ -o public/apidoc",
-    "coverage": "nyc --reporter=html --reporter=text mocha --exit --timeout 30000"
+    "coverage": "nyc --reporter=html --reporter=text mocha --exit --timeout 30000",
+    "clusters": "node clusters.js"
   },
   "apidoc": {
     "name": "Node Task API - Documentation",
@@ -32,13 +33,16 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.1",
+    "compression": "^1.7.4",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "jwt-simple": "^0.5.6",
+    "morgan": "^1.10.0",
     "mysql2": "^3.1.2",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
-    "sequelize": "^6.28.0"
+    "sequelize": "^6.28.0",
+    "winston": "^3.8.2"
   },
   "devDependencies": {
     "apidoc": "^0.54.0",

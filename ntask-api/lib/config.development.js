@@ -1,3 +1,5 @@
+const logger = require("../libs/logger.js");
+
 const myAppConfig = {
     database : "ntask_api_v2",
     username : "root",
@@ -5,7 +7,9 @@ const myAppConfig = {
     params : {
         dialect : "mysql",
         dialectModulePath : "mysql2",
-//        logging : console.log,
+        logging : (sql) => {
+            logger.info(`[${new Date()}] ${sql}`);
+        },
         define : {
             undescored : true
         }
