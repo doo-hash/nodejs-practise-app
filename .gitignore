@@ -1,4 +1,5 @@
 node_modules
 .nyc_output
 coverage
-public/apidoc
+ntask-api/public/apidoc
+ntask-api-v3/public/apidoc
